@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html >
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+ 
+<div ng-app="myApp" ng-controller="customersCtrl">
+ 
+<table>
+  <tr ng-repeat="x in names">
+    <td>{{ x.Name }}</td>
+    <td>{{ x.Country }}</td>
+  </tr>
+</table>
+ 
+</div>
+ 
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+   $http.get("customers_mysql.php")
+   .then(function (response) {$scope.names = response.data.records;});
+});
+</script>
+ 
+</body>
+</html>
+<!--
+  Fetching Data From a PHP Server Running MySQL from server file named customers_mysql.php
+
+
+    { "records":[ {"Name":"Alfreds Futterkiste","City":"Berlin","Country":"Germany"},
+    {"Name":"Ana Trujillo Emparedados y helados","City":"México D.F.","Country":"Mexico"}, 
+    {"Name":"Antonio Moreno Taquería","City":"México D.F.","Country":"Mexico"},
+    {"Name":"Around the Horn","City":"London","Country":"UK"}, 
+    {"Name":"B's Beverages","City":"London","Country":"UK"},
+    {"Name":"Berglunds snabbköp","City":"Luleå","Country":"Sweden"}, 
+    {"Name":"Blauer See Delikatessen","City":"Mannheim","Country":"Germany"}, 
+    {"Name":"Blondel père et fils","City":"Strasbourg","Country":"France"},
+    {"Name":"Bólido Comidas preparadas","City":"Madrid","Country":"Spain"}, 
+    {"Name":"Bon app'","City":"Marseille","Country":"France"}, 
+    {"Name":"Bottom-Dollar Marketse","City":"Tsawassen","Country":"Canada"},
+    {"Name":"Cactus Comidas para llevar","City":"Buenos Aires","Country":"Argentina"},
+    {"Name":"Centro comercial Moctezuma","City":"México D.F.","Country":"Mexico"}, 
+    {"Name":"Chop-suey Chinese","City":"Bern","Country":"Switzerland"}, 
+    {"Name":"Comércio Mineiro","City":"São Paulo","Country":"Brazil"} ] } 
+-->
